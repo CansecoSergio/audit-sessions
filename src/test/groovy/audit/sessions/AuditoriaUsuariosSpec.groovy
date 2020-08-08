@@ -3,7 +3,7 @@ package audit.sessions
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class AuditoriaUsuarioSpec extends Specification implements DomainUnitTest<AuditoriaUsuario> {
+class AuditoriaUsuariosSpec extends Specification implements DomainUnitTest<AuditoriaUsuarios> {
 
     def setup() {
     }

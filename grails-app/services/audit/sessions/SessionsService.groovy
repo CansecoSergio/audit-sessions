@@ -20,7 +20,7 @@ class SessionsService {
         def grailsWebRequest = WebUtils.retrieveGrailsWebRequest()?.getCurrentRequest()
 
         try {
-            AuditoriaUsuario auditoriaUsuario = new AuditoriaUsuario()
+            AuditoriaUsuarios auditoriaUsuario = new AuditoriaUsuarios()
 
             auditoriaUsuario.usuario = springSecurityService.isLoggedIn() ?
                     springSecurityService.currentUser?.username : "NO AUTENTICADO"

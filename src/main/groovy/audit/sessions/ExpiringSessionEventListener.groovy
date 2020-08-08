@@ -4,6 +4,7 @@ import grails.gorm.transactions.Transactional
 import groovy.util.logging.Slf4j
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContext
+import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.context.request.ServletRequestAttributes
 
 import javax.servlet.http.HttpSessionEvent

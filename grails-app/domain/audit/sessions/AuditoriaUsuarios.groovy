@@ -2,7 +2,7 @@ package audit.sessions
 
 import java.time.LocalDateTime
 
-class AuditoriaUsuario {
+class AuditoriaUsuarios {
 
     String usuario
     String idSesion
