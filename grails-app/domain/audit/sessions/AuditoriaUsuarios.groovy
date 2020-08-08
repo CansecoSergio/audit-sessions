@@ -20,7 +20,7 @@ class AuditoriaUsuarios {
 
     static mapping = {
         version false
-        id(generator: 'sequence', params: [sequence: 'auditoria_usuario_id_seq'])
+        id(generator: 'sequence', params: [sequence: 'auditoria_usuarios_id_seq'])
     }
 
 }
