@@ -1,6 +1,7 @@
 package audit.sessions
 
 import grails.gorm.transactions.Transactional
+import grails.plugin.springsecurity.SpringSecurityUtils
 import groovy.util.logging.Slf4j
 import org.springframework.context.ApplicationListener
 import org.springframework.security.authentication.event.AbstractAuthenticationEvent
@@ -71,19 +72,22 @@ class LoggingSecurityEventListener implements ApplicationListener<AbstractAuthen
     @Override
     @Transactional
     void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        authentication.with {
-            def usuario = principal.hasProperty('username')?.getProperty(principal) ?: principal
-            try {
-                BitacoraSesiones registro = new BitacoraSesiones()
-                registro.actividad = 'LOGOUT REALIZADO'
-                registro.fecha = LocalDateTime.now()
-                registro.usuario = usuario
-                registro.ip = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-                        .getRequest().getRemoteAddr() ?: null
+        authentication.with { it ->
+            def autenticacion = it?.getPrincipal() ?: null;
+            if (autenticacion) {
+                def usuario = autenticacion.hasProperty('username')?.getProperty(autenticacion) ?: autenticacion
+                try {
+                    BitacoraSesiones registro = new BitacoraSesiones()
+                    registro.actividad = 'LOGOUT REALIZADO'
+                    registro.fecha = LocalDateTime.now()
+                    registro.usuario = usuario
+                    registro.ip = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+                            .getRequest().getRemoteAddr() ?: null
 
-                registro.save flush: true, failOnError: true
-            } catch (e) {
-                log.error e
+                    registro.save flush: true, failOnError: true
+                } catch (e) {
+                    log.error e
+                }
             }
         }
     }
